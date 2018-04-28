@@ -1,0 +1,1 @@
+An Api to register and manage residents of a condomiunium
