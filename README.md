@@ -9,7 +9,7 @@ An Api to register and manage residents of a condominium
 .Net Core 2.0  
 Autofac  
 Entity Framework  
-Mock  
+Moq  
 NUnit  
 Sqlite
 
@@ -22,7 +22,7 @@ The following instructions are supposed to be used in a bash compatible shell
 On the root directory, run:
 
 - ./build.sh database update
-- ./build.sh watch
+- ./build.sh run
 
 ### Running unit tests
 
