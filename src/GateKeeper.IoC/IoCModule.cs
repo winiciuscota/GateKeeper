@@ -18,7 +18,7 @@ namespace GateKeeper.IoC
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
 
             // DbContext
-            builder.RegisterType<GateKeeperDbContext>();
+            builder.RegisterType<GateKeeperDbContext>().SingleInstance();
         }
     }
 }
