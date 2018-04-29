@@ -35,7 +35,6 @@ namespace GateKeeper.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ApartmentId = table.Column<int>(nullable: false),
                     Cpf = table.Column<string>(nullable: true),
                     Deleted = table.Column<bool>(nullable: false),
                     Email = table.Column<string>(nullable: true),

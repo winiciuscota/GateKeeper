@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using GateKeeper.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,11 +26,13 @@ namespace GateKeeper.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddAutoMapper();
 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new IoCModule());
             builder.Populate(services);
             var container = builder.Build();
+            
             return new AutofacServiceProvider(container);
         }
 

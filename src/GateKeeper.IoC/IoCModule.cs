@@ -2,6 +2,7 @@ using Autofac;
 using GateKeeper.Data;
 using GateKeeper.Data.Context;
 using GateKeeper.Data.Repositories;
+using GateKeeper.Domain;
 using GateKeeper.Domain.Repositories.Interfaces;
 
 namespace GateKeeper.IoC
@@ -10,9 +11,13 @@ namespace GateKeeper.IoC
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // Services
+            // Repositories
             builder.RegisterType<ResidentRepository>().As<IResidentRepository>();
 
+            // Unit of work
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+
+            // DbContext
             builder.RegisterType<GateKeeperDbContext>();
         }
     }

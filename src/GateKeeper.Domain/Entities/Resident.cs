@@ -13,8 +13,6 @@ namespace GateKeeper.Domain.Entities
 
         public ICollection<ResidentApartment> ResidentApartments { get; set; }
 
-        public int ApartmentId { get; set; }
-
         public string Phone { get; set; }
 
         public string Cpf { get; set; }
