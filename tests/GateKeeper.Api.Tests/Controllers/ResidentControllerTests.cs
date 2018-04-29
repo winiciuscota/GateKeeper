@@ -7,6 +7,7 @@ using AutoMapper;
 using GateKeeper.Api.Controllers;
 using GateKeeper.Domain;
 using GateKeeper.Domain.Entities;
+using GateKeeper.Domain.Queries;
 using GateKeeper.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -41,7 +42,7 @@ namespace GateKeeper.Api.Tests
 
 
             // Act
-            var getResidentResult = await controller.GetAll();
+            var getResidentResult = await controller.GetAll(new ResidentQuery());
             var okResult = getResidentResult as OkObjectResult;
 
             // assert

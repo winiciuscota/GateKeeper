@@ -33,13 +33,36 @@ On the root directory, run:
 ### Using the Api
 
 #### Registering a new resident
-In order to register a new resident send an post request to <ip-address>:<port-number>/api/residents with the json data for the resident as: <br />
+In order to register a new resident send an post request to /api/residents with the json data for the resident as: <br />
 ```json
 {
 	"name":"John Cena",
 	"email":"john.cena@gmail.com",
 	"phone":"232323",
-	"cpf":"22323"
+	"cpf":"22323",
+	"block": "B",
+	"apartment": "301"
 }
 ```
+
+#### Editing a resident
+To edit a resident send an put request to /api/residents/{resident-id} where {resident-id} is the id of the resident you want ot edit. The new data for the resident must be passed in the request body.
+
+#### Retrieving residents
+
+To retrieve a single resident make a get request to /api/residents/{resident-id}, where resident-id is the id of the resident.
+
+To retrieve a list of residents make a request to /api/residents.  You can also filter the residents by name, email, block and apartment.  
+eg: if you want to get all the residents which have the string john in their name make an get request with the url /api/residents/?name=john.
+
+#### Deleting residents
+To delete a single resident make a delete request to /api/residents/{resident-id} where {resdient-id} is the id of the resident you want to remove.
+
+
+
+
+
+
+
+
 

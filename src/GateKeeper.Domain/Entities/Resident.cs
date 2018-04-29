@@ -11,13 +11,13 @@ namespace GateKeeper.Domain.Entities
 
         public string Email { get; set; }
 
-        public ICollection<ResidentApartment> ResidentApartments { get; set; }
+        public string Block { get; set; }
+
+        public string Apartment { get; set; }
 
         public string Phone { get; set; }
 
         public string Cpf { get; set; }
-
-        public Resident() => ResidentApartments = new Collection<ResidentApartment>();
 
     }
 }

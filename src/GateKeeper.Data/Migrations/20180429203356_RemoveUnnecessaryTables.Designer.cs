@@ -10,9 +10,10 @@ using System;
 namespace GateKeeper.Data.Migrations
 {
     [DbContext(typeof(GateKeeperDbContext))]
-    partial class GateKeeperDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180429203356_RemoveUnnecessaryTables")]
+    partial class RemoveUnnecessaryTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -12,15 +12,6 @@ namespace GateKeeper.Api.Mapping
         {
             CreateMap<Resident, ResidentViewModel>().ReverseMap()
                 .ForMember(x => x.Id, opt => opt.Ignore());
-
-            CreateMap<Condominium, CondominiumViewModel>().ReverseMap()
-                .ForMember(x => x.Id, opt => opt.Ignore());
-
-            CreateMap<CondominiumBlock, CondominiumBlockViewModel>().ReverseMap()
-                .ForMember(x => x.Id, opt => opt.Ignore());
-
-            CreateMap<Resident, ResidentViewModel>().ReverseMap()
-                .ForMember(x => x.Id, opt => opt.Ignore());
         }
     }
 }
