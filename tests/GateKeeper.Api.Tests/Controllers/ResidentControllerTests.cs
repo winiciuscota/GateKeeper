@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using GateKeeper.Api.Controllers;
+using GateKeeper.Api.ViewModels;
 using GateKeeper.Domain;
 using GateKeeper.Domain.Entities;
 using GateKeeper.Domain.Queries;
@@ -66,6 +67,94 @@ namespace GateKeeper.Api.Tests
             // assert
             Assert.IsInstanceOf<OkObjectResult>(getResidentResult);
             Assert.IsInstanceOf<OkObjectResult>(okResult);
+        }
+
+        [Test]
+        public async Task Create_CreateResidentWithIncompleteData_ReturnsBadRquest()
+        {
+            // Arrange
+            // _mockResidentRepository.Setup(repo => repo.Add(It.IsAny<Resident>()));
+
+            var controller = new ResidentsController(_mockResidentRepository.Object,
+                _mockUoW.Object, _mockMapper.Object);
+
+            // Act
+            var residentViewModel = new ResidentViewModel { Name = "John Cena" };
+            var addResidentResult = await controller.Create(residentViewModel);
+
+            // assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(addResidentResult);
+            // var badRequestResult = addResidentResult as BadRequestObjectResult;
+            // Assert.IsInstanceOf<SerializableError>(badRequestResult.Value);
+        }
+
+        [Test]
+        public async Task Create_CreateResidentWithCompleteData_ReturnsOKResult()
+        {
+            // Arrange
+            // _mockResidentRepository.Setup(repo => repo.Add(It.IsAny<Resident>()));
+
+            var controller = new ResidentsController(_mockResidentRepository.Object,
+                _mockUoW.Object, _mockMapper.Object);
+
+            // Act
+            var residentViewModel = new ResidentViewModel
+            {
+                Name = "John Cena",
+                Email = "john.cena@gmail.com",
+                Block = "B",
+                Apartment = "301",
+                Cpf = "3243141431"
+            };
+
+            var addResidentResult = await controller.Create(residentViewModel);
+            var okResult = addResidentResult as OkObjectResult;
+            // assert
+            Assert.IsInstanceOf<OkObjectResult>(addResidentResult);
+            Assert.IsInstanceOf<OkObjectResult>(okResult);
+        }
+
+        [Test]
+        public async Task Delete_DeleteResident_DeleteResidentAndReturnsOKResult()
+        {
+            // Arrange
+            var fakeResident = new Resident
+            {
+                Name = "John Cena",
+                Email = "john.cena@gmail.com",
+                Block = "B",
+                Apartment = "301",
+                Cpf = "3243141431"
+            };
+            _mockResidentRepository.Setup(repo => repo.GetAsync(It.IsAny<int>())).ReturnsAsync(fakeResident); ;
+
+            var controller = new ResidentsController(_mockResidentRepository.Object,
+                _mockUoW.Object, _mockMapper.Object);
+
+            // Act
+            var residentViewModel = new ResidentViewModel { Name = "John Cena" };
+            var deleteResidentResult = await controller.Delete(2);
+
+            // assert
+            Assert.IsInstanceOf<OkObjectResult>(deleteResidentResult);
+            Assert.AreEqual(true, fakeResident.Deleted);
+        }
+
+        [Test]
+        public async Task Delete_DeleteNullResident_ReturnsBadRequest()
+        {
+            // Arrange
+            _mockResidentRepository.Setup(repo => repo.GetAsync(It.IsAny<int>())).ReturnsAsync((Resident) null); ;
+
+            var controller = new ResidentsController(_mockResidentRepository.Object,
+                _mockUoW.Object, _mockMapper.Object);
+
+            // Act
+            var residentViewModel = new ResidentViewModel { Name = "John Cena" };
+            var deleteResidentResult = await controller.Delete(2);
+
+            // assert
+            Assert.IsInstanceOf<BadRequestObjectResult>(deleteResidentResult);
         }
 
 
