@@ -11,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.Data", "src\Gate
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.Domain", "src\GateKeeper.Domain\GateKeeper.Domain.csproj", "{950AE976-82A8-4308-BFDE-1330966DFBA2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FE354059-7179-4C7E-8501-EBE04A661B1A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FE354059-7179-4C7E-8501-EBE04A661B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.Api.Tests", "test\GateKeeper.Api.Tests\GateKeeper.Api.Tests.csproj", "{8DABA7FB-7676-4992-85CE-8FBB64F238E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.Api.Tests", "tests\GateKeeper.Api.Tests\GateKeeper.Api.Tests.csproj", "{8DABA7FB-7676-4992-85CE-8FBB64F238E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.Data.Tests", "test\GateKeeper.Data.Tests\GateKeeper.Data.Tests.csproj", "{21A7DDFE-EF96-4EDD-9A29-3E8031A12EA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.Data.Tests", "tests\GateKeeper.Data.Tests\GateKeeper.Data.Tests.csproj", "{21A7DDFE-EF96-4EDD-9A29-3E8031A12EA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.Domain.Tests", "test\GateKeeper.Domain.Tests\GateKeeper.Domain.Tests.csproj", "{FAF735C1-2546-4C74-85ED-B64121408A69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.Domain.Tests", "tests\GateKeeper.Domain.Tests\GateKeeper.Domain.Tests.csproj", "{FAF735C1-2546-4C74-85ED-B64121408A69}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper.IoC", "src\GateKeeper.IoC\GateKeeper.IoC.csproj", "{4DC7B7CE-448C-44EE-922D-5EF3D4726AF6}"
 EndProject

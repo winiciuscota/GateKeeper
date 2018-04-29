@@ -13,7 +13,7 @@ if [ -z "$1" ]
         fi
         if [ $1 = "test" ]; then
             echo "Running unit tests"
-            for filename in test/*; do
+            for filename in tests/*; do
                 dotnet test $filename/*.csproj
             done
         fi
