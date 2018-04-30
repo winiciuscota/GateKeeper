@@ -32,6 +32,10 @@ On the root directory, run:
 
 ### Using the Api
 
+#### Authentication
+
+This api uses Basic Authentication. All the requests must contain an Authorization header with the content "Basic {username}:{password}". The username and password can be changed in the file appsettings.json.
+
 #### Registering a new resident
 In order to register a new resident send an post request to /api/residents with the json data for the resident as: <br />
 ```json
