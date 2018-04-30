@@ -1,12 +1,13 @@
 
 
 using AutoMapper;
+using AutoMapper.Configuration;
 using GateKeeper.Api.ViewModels;
 using GateKeeper.Domain.Entities;
 
 namespace GateKeeper.Api.Mapping
 {
-    public class MappingProfile : Profile
+    public class MappingProfile : MapperConfigurationExpression
     {
         public MappingProfile()
         {

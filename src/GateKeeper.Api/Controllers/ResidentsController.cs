@@ -10,6 +10,7 @@ using GateKeeper.Api.ViewModels;
 using AutoMapper;
 using GateKeeper.Domain;
 using GateKeeper.Domain.Queries;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GateKeeper.Api.Controllers
 {

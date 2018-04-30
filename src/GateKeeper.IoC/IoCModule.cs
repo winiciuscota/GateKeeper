@@ -4,6 +4,7 @@ using GateKeeper.Data.Context;
 using GateKeeper.Data.Repositories;
 using GateKeeper.Domain;
 using GateKeeper.Domain.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace GateKeeper.IoC
 {

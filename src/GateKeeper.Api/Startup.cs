@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using GateKeeper.Api.Middlewares;
+using GateKeeper.Api.Middlewares.Models;
 using GateKeeper.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +29,7 @@ namespace GateKeeper.Api
         {
             services.AddMvc();
             services.AddAutoMapper();
+            services.Configure<BasicAuthentication>(Configuration.GetSection("BasicAuthentication"));
 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new IoCModule());
@@ -49,6 +52,7 @@ namespace GateKeeper.Api
             }
 
             app.UseStaticFiles();
+            app.UseMiddleware<AuthenticationMiddleware>();
 
             app.UseMvc(routes =>
             {

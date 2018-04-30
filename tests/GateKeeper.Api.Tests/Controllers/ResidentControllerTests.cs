@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using GateKeeper.Api.Controllers;
+using GateKeeper.Api.Mapping;
 using GateKeeper.Api.ViewModels;
 using GateKeeper.Domain;
 using GateKeeper.Domain.Entities;
@@ -21,25 +22,28 @@ namespace GateKeeper.Api.Tests
     {
         private Mock<IResidentRepository> _mockResidentRepository;
         private Mock<IUnitOfWork> _mockUoW;
-        private Mock<IMapper> _mockMapper;
+        private IMapper _mapper;
 
 
         public ResidentsControllerTests()
         {
             _mockResidentRepository = new Mock<IResidentRepository>();
             _mockUoW = new Mock<IUnitOfWork>();
-            _mockMapper = new Mock<IMapper>();
+            var mappingProfile = new MappingProfile();
+
+            var config = new MapperConfiguration(mappingProfile);
+            _mapper = new Mapper(config);
         }
 
         [Test]
         public async Task GetAll_ReturnListOfResidents()
         {
             // Arrange
-            _mockResidentRepository.Setup(repo => repo.GetAllAsync(It.IsAny<Expression<Func<Resident, bool>>>()))
-                .ReturnsAsync(new List<Resident> { new Resident() });
+            _mockResidentRepository.Setup(repo => repo.GetAllAsync(It.IsAny<ResidentQuery>()))
+                .ReturnsAsync(new List<Resident> { new Resident(), new Resident() });
 
             var controller = new ResidentsController(_mockResidentRepository.Object,
-                _mockUoW.Object, _mockMapper.Object);
+                _mockUoW.Object, _mapper);
 
 
             // Act
@@ -48,7 +52,9 @@ namespace GateKeeper.Api.Tests
 
             // assert
             Assert.IsInstanceOf<OkObjectResult>(getResidentResult);
-            Assert.IsInstanceOf<OkObjectResult>(okResult);
+            Assert.IsInstanceOf<IEnumerable<ResidentViewModel>>(okResult.Value);
+            var resultValue = (IEnumerable<ResidentViewModel>)okResult.Value;
+            Assert.AreEqual(2, resultValue.Count());
         }
 
         [Test]
@@ -59,14 +65,14 @@ namespace GateKeeper.Api.Tests
                 .ReturnsAsync(new Resident());
 
             var controller = new ResidentsController(_mockResidentRepository.Object,
-                _mockUoW.Object, _mockMapper.Object);
+                _mockUoW.Object, _mapper);
 
             // Act
             var getResidentResult = await controller.Get(2);
             var okResult = getResidentResult as OkObjectResult;
             // assert
             Assert.IsInstanceOf<OkObjectResult>(getResidentResult);
-            Assert.IsInstanceOf<OkObjectResult>(okResult);
+            Assert.IsInstanceOf<ResidentViewModel>(okResult.Value);
         }
 
         [Test]
@@ -76,7 +82,9 @@ namespace GateKeeper.Api.Tests
             // _mockResidentRepository.Setup(repo => repo.Add(It.IsAny<Resident>()));
 
             var controller = new ResidentsController(_mockResidentRepository.Object,
-                _mockUoW.Object, _mockMapper.Object);
+                _mockUoW.Object, _mapper);
+
+            controller.ModelState.AddModelError("Email", "Required");
 
             // Act
             var residentViewModel = new ResidentViewModel { Name = "John Cena" };
@@ -84,18 +92,14 @@ namespace GateKeeper.Api.Tests
 
             // assert
             Assert.IsInstanceOf<BadRequestObjectResult>(addResidentResult);
-            // var badRequestResult = addResidentResult as BadRequestObjectResult;
-            // Assert.IsInstanceOf<SerializableError>(badRequestResult.Value);
         }
 
         [Test]
         public async Task Create_CreateResidentWithCompleteData_ReturnsOKResult()
         {
             // Arrange
-            // _mockResidentRepository.Setup(repo => repo.Add(It.IsAny<Resident>()));
-
             var controller = new ResidentsController(_mockResidentRepository.Object,
-                _mockUoW.Object, _mockMapper.Object);
+                _mockUoW.Object, _mapper);
 
             // Act
             var residentViewModel = new ResidentViewModel
@@ -108,10 +112,11 @@ namespace GateKeeper.Api.Tests
             };
 
             var addResidentResult = await controller.Create(residentViewModel);
-            var okResult = addResidentResult as OkObjectResult;
             // assert
             Assert.IsInstanceOf<OkObjectResult>(addResidentResult);
-            Assert.IsInstanceOf<OkObjectResult>(okResult);
+            var okResult = addResidentResult as OkObjectResult;
+
+            Assert.IsInstanceOf<ResidentViewModel>(okResult.Value);
         }
 
         [Test]
@@ -129,7 +134,7 @@ namespace GateKeeper.Api.Tests
             _mockResidentRepository.Setup(repo => repo.GetAsync(It.IsAny<int>())).ReturnsAsync(fakeResident); ;
 
             var controller = new ResidentsController(_mockResidentRepository.Object,
-                _mockUoW.Object, _mockMapper.Object);
+                _mockUoW.Object, _mapper);
 
             // Act
             var residentViewModel = new ResidentViewModel { Name = "John Cena" };
@@ -137,6 +142,9 @@ namespace GateKeeper.Api.Tests
 
             // assert
             Assert.IsInstanceOf<OkObjectResult>(deleteResidentResult);
+            var okResult = deleteResidentResult as OkObjectResult;
+
+            Assert.IsInstanceOf<ResidentViewModel>(okResult.Value);
             Assert.AreEqual(true, fakeResident.Deleted);
         }
 
@@ -144,10 +152,10 @@ namespace GateKeeper.Api.Tests
         public async Task Delete_DeleteNullResident_ReturnsBadRequest()
         {
             // Arrange
-            _mockResidentRepository.Setup(repo => repo.GetAsync(It.IsAny<int>())).ReturnsAsync((Resident) null); ;
+            _mockResidentRepository.Setup(repo => repo.GetAsync(It.IsAny<int>())).ReturnsAsync((Resident)null); ;
 
             var controller = new ResidentsController(_mockResidentRepository.Object,
-                _mockUoW.Object, _mockMapper.Object);
+                _mockUoW.Object, _mapper);
 
             // Act
             var residentViewModel = new ResidentViewModel { Name = "John Cena" };

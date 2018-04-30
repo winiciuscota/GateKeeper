@@ -11,10 +11,10 @@ namespace GateKeeper.Data.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly GateKeeperDbContext _dbContext;
+        protected readonly DbContext _dbContext;
 
 
-        public Repository(GateKeeperDbContext dbContext) => _dbContext = dbContext;
+        public Repository(DbContext dbContext) => _dbContext = dbContext;
 
         public void Add(TEntity obj)
         {
