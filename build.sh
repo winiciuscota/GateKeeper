@@ -7,6 +7,22 @@ if [ -z "$1" ]
         echo "Building project"
         dotnet build
     else
+        if [ $1 = "clear" ]; then
+            echo "Clearing project binaries"
+            rm -rf src/*/*/bin
+            rm -rf src/*/*/src
+            rm -rf tests/*/*/bin
+            rm -rf tests/*/*/src
+        fi
+        if [ $1 = "restore" ]; then
+            echo "Clearing project binaries"
+            rm -rf src/*/*/bin
+            rm -rf src/*/*/src
+            rm -rf tests/*/*/bin
+            rm -rf tests/*/*/src
+            echo "Restoring"
+            dotnet restore
+        fi
         if [ $1 = "run" ]; then
             echo "Building and running project"
             dotnet run --project $startup_project_dir

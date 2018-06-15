@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/GateKeeper.Api/bin/Debug/netcoreapp2.0/GateKeeper.Api.dll",
+            "program": "${workspaceFolder}/src/GateKeeper.Api/bin/Debug/netcoreapp2.1/GateKeeper.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/GateKeeper.Api",
             "stopAtEntry": false,
